@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Bank Portal - SQL Injection Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .login-form {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .bank-logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .login-info h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .login-info p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        .account-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .account-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .query-display {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .query-display h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .query-text {
+            background: #fff;
+            padding: 10px;
+            border-radius: 3px;
+            color: #d63031;
+            word-break: break-all;
+            font-weight: 500;
+        }
+
+        .demo-warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .demo-payloads {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #004085;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .demo-payloads h4 {
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .payload-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .payload-item:hover {
+            background: #d9ecf7;
+        }
+
+        .payload-label {
+            font-weight: 600;
+            color: #0056b3;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .payload-code {
+            color: #d63031;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            .login-box {
+                grid-template-columns: 1fr;
+            }
+
+            .login-info {
+                display: none;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+        .clear-btn {
+            margin-top: 10px;
+            background: #6c757d;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .clear-btn:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="login-form">
+                <h1>🏦 Secure Bank Portal</h1>
+
+                <div class="demo-warning">
+                    <strong>⚠️ Educational Demo:</strong> This page is intentionally vulnerable to SQL injection for learning purposes. Do not use this code in production environments.
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Enter username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <div id="message" class="message"></div>
+
+                <div id="accountInfo" class="account-info">
+                    <h3>✓ Account Information</h3>
+                    <div class="info-row">
+                        <strong>Username:</strong>
+                        <span id="infoUsername"></span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Account Type:</strong>
+                        <span id="infoAccountType"></span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Balance:</strong>
+                        <span id="infoBalance"></span>
+                    </div>
+                </div>
+
+                <div id="queryDisplay" class="query-display">
+                    <h4>SQL Query Executed:</h4>
+                    <div class="query-text" id="queryText"></div>
+                </div>
+
+                <button type="button" class="clear-btn" onclick="clearForm()">Clear Form</button>
+
+                <div class="demo-payloads">
+                    <h4>📚 Try These Payloads:</h4>
+                    <div class="payload-item" onclick="tryPayload('user', 'password123')">
+                        <span class="payload-label">✓ Legitimate Login</span>
+                        <span class="payload-code">Username: user | Password: password123</span>
+                    </div>
+                    <div class="payload-item" onclick="tryPayload(&quot;' OR '1'='1&quot;, 'anything')">
+                        <span class="payload-label">💉 OR-Based Injection</span>
+                        <span class="payload-code">Username: ' OR '1'='1 | Password: anything</span>
+                    </div>
+                    <div class="payload-item" onclick="tryPayload(&quot;admin'--&quot;, 'anything')">
+                        <span class="payload-label">💉 Comment Bypass</span>
+                        <span class="payload-code">Username: admin'-- | Password: anything</span>
+                    </div>
+                    <div class="payload-item" onclick="tryPayload(&quot;admin'#&quot;, 'anything')">
+                        <span class="payload-label">💉 Hash Comment Bypass</span>
+                        <span class="payload-code">Username: admin'# | Password: anything</span>
+                    </div>
+                    <div class="payload-item" onclick="tryPayload(&quot;' AND '1'='1&quot;, &quot;' AND '1'='1&quot;)">
+                        <span class="payload-label">💉 Boolean-Based</span>
+                        <span class="payload-code">Username: ' AND '1'='1 | Password: ' AND '1'='1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-info">
+                <div class="bank-logo">🏦</div>
+                <h2>Welcome</h2>
+                <p>This demo page teaches SQL Injection vulnerabilities in a safe, educational environment.</p>
+                <p><strong>Demo Users:</strong></p>
+                <p>user / password123<br>admin / admin123<br>guest / guest</p>
+                <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">⚠️ For educational purposes only. Never use vulnerable code in production!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated user database
+        const users = [
+            {
+                username: "user",
+                password: "password123",
+                accountType: "Checking",
+                balance: "$5,234.50"
+            },
+            {
+                username: "admin",
+                password: "admin123",
+                accountType: "Admin",
+                balance: "Full Access"
+            },
+            {
+                username: "guest",
+                password: "guest",
+                accountType: "Guest",
+                balance: "$0.00"
+            }
+        ];
+
+        // Vulnerable SQL-like query function (intentionally vulnerable for demo)
+        function vulnerableQuery(username, password) {
+            // This simulates a vulnerable SQL query like:
+            // SELECT * FROM users WHERE username = 'input1' AND password = 'input2'
+
+            // Build the query string (vulnerable because it concatenates user input)
+            const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+
+            // Display the query
+            document.getElementById('queryText').textContent = query;
+            document.getElementById('queryDisplay').style.display = 'block';
+
+            // Evaluate the query (this is where the vulnerability is exploited)
+            // In a real database, the SQL would be parsed, but here we simulate it
+            try {
+                // For the demo, we'll check if certain injection patterns exist
+                // and bypass authentication accordingly
+
+                // Check for OR-based injection
+                if (username.includes("'") || username.includes("--") || username.includes("#")) {
+                    // If the username contains SQL injection syntax, evaluate it
+                    for (let user of users) {
+                        // Check if the condition would be true with the injection
+                        // OR '1'='1 bypass
+                        if (username.includes("' OR '1'='1")) {
+                            return user; // Returns first user (successful injection)
+                        }
+                        // Comment-based bypass (admin'-- or admin'#)
+                        if (username.includes("'") && (username.includes("--") || username.includes("#"))) {
+                            // Extract the username before the injection
+                            const cleanUsername = username.split("'")[0];
+                            const foundUser = users.find(u => u.username === cleanUsername);
+                            if (foundUser) {
+                                return foundUser;
+                            }
+                        }
+                        // AND-based bypass
+                        if (username.includes("' AND '1'='1") && password.includes("' AND '1'='1")) {
+                            return user; // Returns first matching user
+                        }
+                    }
+                }
+
+                // Normal query execution (if no injection detected)
+                const user = users.find(u => u.username === username && u.password === password);
+                return user || null;
+
+            } catch (error) {
+                console.error("Query error:", error);
+                return null;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Clear previous messages
+            document.getElementById('message').className = 'message';
+            document.getElementById('accountInfo').style.display = 'none';
+
+            // Execute the vulnerable query
+            const user = vulnerableQuery(username, password);
+
+            if (user) {
+                // Successful login (including SQL injection bypass)
+                showSuccess(`Login successful! Welcome, ${user.username}!`, user);
+            } else {
+                showError('Invalid username or password.');
+            }
+        });
+
+        function showSuccess(message, user) {
+            const msgEl = document.getElementById('message');
+            msgEl.textContent = '✓ ' + message;
+            msgEl.className = 'message success';
+
+            // Display account information
+            document.getElementById('infoUsername').textContent = user.username;
+            document.getElementById('infoAccountType').textContent = user.accountType;
+            document.getElementById('infoBalance').textContent = user.balance;
+            document.getElementById('accountInfo').style.display = 'block';
+        }
+
+        function showError(message) {
+            const msgEl = document.getElementById('message');
+            msgEl.textContent = '✗ ' + message;
+            msgEl.className = 'message error';
+        }
+
+        function clearForm() {
+            document.getElementById('loginForm').reset();
+            document.getElementById('message').className = 'message';
+            document.getElementById('accountInfo').style.display = 'none';
+            document.getElementById('queryDisplay').style.display = 'none';
+            document.getElementById('username').focus();
+        }
+
+        function tryPayload(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+        }
+
+        // Focus on username field on load
+        window.addEventListener('load', function() {
+            document.getElementById('username').focus();
+        });
+    </script>
+</body>
+</html>
