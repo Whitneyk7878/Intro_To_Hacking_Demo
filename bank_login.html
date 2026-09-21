@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #f5f5f5;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -23,16 +23,15 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 500px;
         }
 
         .login-box {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: block;
         }
 
         .login-form {
@@ -43,25 +42,18 @@
         }
 
         .login-info {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            display: none;
         }
 
         .bank-logo {
-            font-size: 48px;
-            margin-bottom: 15px;
+            display: none;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 10px;
-            color: #333;
+            color: #2c3e50;
+            font-weight: 600;
         }
 
         .login-info h2 {
@@ -91,38 +83,38 @@
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #2c3e50;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #2c3e50;
             color: white;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: background 0.2s;
         }
 
         button:hover {
-            transform: translateY(-2px);
+            background: #1a252f;
         }
 
         button:active {
-            transform: translateY(0);
+            background: #2c3e50;
         }
 
         .message {
@@ -152,7 +144,7 @@
             padding: 15px;
             background: #f8f9fa;
             border-radius: 5px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #2c3e50;
             display: none;
         }
 
@@ -178,8 +170,8 @@
             margin-top: 30px;
             padding: 15px;
             background: #f0f0f0;
-            border-radius: 5px;
-            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+            border-left: 4px solid #d4a017;
             font-family: 'Courier New', monospace;
             font-size: 12px;
             line-height: 1.6;
@@ -202,22 +194,22 @@
         }
 
         .demo-warning {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            color: #856404;
+            background: #fef5e7;
+            border: 1px solid #f9e79f;
+            color: #7d6608;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 4px;
             margin-bottom: 20px;
             font-size: 13px;
             line-height: 1.6;
         }
 
         .demo-payloads {
-            background: #e7f3ff;
-            border: 1px solid #b3d9ff;
-            color: #004085;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 4px;
             margin-top: 20px;
             font-size: 12px;
         }
@@ -238,12 +230,12 @@
         }
 
         .payload-item:hover {
-            background: #d9ecf7;
+            background: #e8eef2;
         }
 
         .payload-label {
             font-weight: 600;
-            color: #0056b3;
+            color: #2c3e50;
             display: block;
             margin-bottom: 3px;
         }
@@ -254,28 +246,24 @@
         }
 
         @media (max-width: 768px) {
-            .login-box {
-                grid-template-columns: 1fr;
-            }
-
-            .login-info {
-                display: none;
-            }
-
             h1 {
-                font-size: 20px;
+                font-size: 18px;
+            }
+
+            .login-form {
+                padding: 30px;
             }
         }
 
         .clear-btn {
             margin-top: 10px;
-            background: #6c757d;
+            background: #95a5a6;
             font-size: 14px;
             padding: 10px;
         }
 
         .clear-btn:hover {
-            background: #5a6268;
+            background: #7f8c8d;
         }
     </style>
 </head>
@@ -283,7 +271,7 @@
     <div class="container">
         <div class="login-box">
             <div class="login-form">
-                <h1>🏦 Secure Bank Portal</h1>
+                <h1>Login Portal</h1>
 
                 <div class="demo-warning">
                     <strong>⚠️ Educational Demo:</strong> This page is intentionally vulnerable to SQL injection for learning purposes. Do not use this code in production environments.

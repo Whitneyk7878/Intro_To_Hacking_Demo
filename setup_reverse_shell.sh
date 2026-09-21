@@ -196,8 +196,11 @@ echo -e "${YELLOW}[*] Creating Metasploit handler script...${NC}"
 # Create temporary RC file for msfconsole
 RC_FILE="/tmp/handler_setup_$$.rc"
 
-cat > "$RC_FILE" << EOF
+cat > "$RC_FILE" << 'MSFEOF'
 use exploit/multi/handler
+MSFEOF
+
+cat >> "$RC_FILE" << EOF
 set PAYLOAD $PAYLOAD
 set LHOST $LHOST
 set LPORT $LPORT
