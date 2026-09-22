@@ -12,13 +12,15 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            background: #f5f5f5;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            background-color: #b0b0b0;
+            background-image: linear-gradient(to bottom, #d9d9d9 0%, #b0b0b0 6%, #b0b0b0 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #2b2b2b;
         }
 
         .container {
@@ -27,18 +29,41 @@
         }
 
         .login-box {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: #f2f2f2;
+            border: 2px solid #7a0000;
+            border-radius: 0;
+            box-shadow: 3px 3px 0 #7a7a7a;
             overflow: hidden;
             display: block;
         }
 
+        .bank-header {
+            background-color: #8b0000;
+            background-image: linear-gradient(to bottom, #a80000 0%, #8b0000 50%, #6b0000 100%);
+            border-bottom: 3px solid #4a0000;
+            padding: 14px 20px;
+        }
+
+        .bank-header .bank-name {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 1px #4a0000;
+        }
+
+        .bank-header .bank-tagline {
+            color: #d9d9d9;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
         .login-form {
-            padding: 40px;
+            padding: 30px 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            background: #f2f2f2;
         }
 
         .login-info {
@@ -50,10 +75,12 @@
         }
 
         h1 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #4a0000;
+            font-weight: bold;
+            border-bottom: 1px solid #b0b0b0;
+            padding-bottom: 8px;
         }
 
         .login-info h2 {
@@ -69,97 +96,103 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
+            margin-bottom: 6px;
+            color: #3a3a3a;
+            font-weight: bold;
+            font-size: 12px;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: border-color 0.2s;
+            padding: 8px;
+            border: 1px solid #7a7a7a;
+            border-radius: 0;
+            font-size: 13px;
+            background: #ffffff;
+            box-shadow: inset 1px 1px 2px #c0c0c0;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             outline: none;
-            border-color: #2c3e50;
+            border-color: #8b0000;
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 10px;
+            background-color: #8b0000;
+            background-image: linear-gradient(to bottom, #a80000 0%, #8b0000 50%, #6b0000 100%);
+            color: #ffffff;
+            border: 1px solid #4a0000;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            text-shadow: 1px 1px 1px #4a0000;
         }
 
         button:hover {
-            background: #1a252f;
+            background-image: linear-gradient(to bottom, #b80000 0%, #950000 50%, #700000 100%);
         }
 
         button:active {
-            background: #2c3e50;
+            background-image: linear-gradient(to bottom, #6b0000 0%, #6b0000 100%);
         }
 
         .message {
             margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 12px;
+            border-radius: 0;
+            font-size: 13px;
+            font-weight: bold;
             display: none;
         }
 
         .success {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
+            background-color: #e6e6e6;
+            border: 1px solid #7a7a7a;
+            border-left: 4px solid #4a4a4a;
+            color: #2b2b2b;
             display: block;
         }
 
         .error {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
+            background-color: #f2dcdc;
+            border: 1px solid #8b0000;
+            border-left: 4px solid #8b0000;
+            color: #6b0000;
             display: block;
         }
 
         .account-info {
             margin-top: 20px;
             padding: 15px;
-            background: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid #2c3e50;
+            background: #e8e8e8;
+            border-radius: 0;
+            border: 1px solid #b0b0b0;
+            border-left: 4px solid #8b0000;
             display: none;
         }
 
         .account-info h3 {
-            color: #333;
+            color: #4a0000;
             margin-bottom: 10px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 13px;
+            border-bottom: 1px solid #cfcfcf;
+            font-size: 12px;
         }
 
         .info-row:last-child {
@@ -167,11 +200,12 @@
         }
 
         .query-display {
-            margin-top: 30px;
-            padding: 15px;
-            background: #f0f0f0;
-            border-radius: 4px;
-            border-left: 4px solid #d4a017;
+            margin-top: 20px;
+            padding: 12px;
+            background: #e0e0e0;
+            border-radius: 0;
+            border: 1px solid #7a7a7a;
+            border-left: 4px solid #4a4a4a;
             font-family: 'Courier New', monospace;
             font-size: 12px;
             line-height: 1.6;
@@ -179,37 +213,41 @@
         }
 
         .query-display h4 {
-            color: #333;
+            color: #3a3a3a;
             margin-bottom: 10px;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .query-text {
-            background: #fff;
+            background: #ffffff;
             padding: 10px;
-            border-radius: 3px;
-            color: #d63031;
+            border: 1px solid #c0c0c0;
+            color: #8b0000;
             word-break: break-all;
-            font-weight: 500;
+            font-weight: bold;
         }
 
         .demo-warning {
-            background: #fef5e7;
-            border: 1px solid #f9e79f;
-            color: #7d6608;
-            padding: 15px;
-            border-radius: 4px;
+            background: #e8e8e8;
+            border: 1px solid #7a7a7a;
+            color: #3a3a3a;
+            padding: 12px;
+            border-radius: 0;
             margin-bottom: 20px;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.6;
         }
 
+        .demo-warning strong {
+            color: #8b0000;
+        }
+
         .demo-payloads {
-            background: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            color: #2c3e50;
+            background: #e0e0e0;
+            border: 1px solid #7a7a7a;
+            color: #2b2b2b;
             padding: 15px;
-            border-radius: 4px;
+            border-radius: 0;
             margin-top: 20px;
             font-size: 12px;
         }
@@ -217,64 +255,72 @@
         .demo-payloads h4 {
             margin-bottom: 10px;
             font-size: 13px;
+            color: #4a0000;
         }
 
         .payload-item {
             margin-bottom: 8px;
             padding: 8px;
-            background: white;
-            border-radius: 3px;
+            background: #ffffff;
+            border: 1px solid #c0c0c0;
+            border-radius: 0;
             font-family: 'Courier New', monospace;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
         .payload-item:hover {
-            background: #e8eef2;
+            background: #f2dcdc;
+            border-color: #8b0000;
         }
 
         .payload-label {
-            font-weight: 600;
-            color: #2c3e50;
+            font-weight: bold;
+            color: #4a0000;
             display: block;
             margin-bottom: 3px;
         }
 
         .payload-code {
-            color: #d63031;
+            color: #6b0000;
             font-size: 11px;
         }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 18px;
+                font-size: 14px;
             }
 
             .login-form {
-                padding: 30px;
+                padding: 20px;
             }
         }
 
         .clear-btn {
             margin-top: 10px;
-            background: #95a5a6;
-            font-size: 14px;
-            padding: 10px;
+            background-color: #7a7a7a;
+            background-image: linear-gradient(to bottom, #9a9a9a 0%, #7a7a7a 50%, #5a5a5a 100%);
+            border: 1px solid #4a4a4a;
+            font-size: 13px;
+            padding: 9px;
         }
 
         .clear-btn:hover {
-            background: #7f8c8d;
+            background-image: linear-gradient(to bottom, #aaaaaa 0%, #8a8a8a 50%, #6a6a6a 100%);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="login-box">
+            <div class="bank-header">
+                <div class="bank-name">FIRST NATIONAL SECURE BANK</div>
+                <div class="bank-tagline">Online Banking Login</div>
+            </div>
             <div class="login-form">
-                <h1>Login Portal</h1>
+                <h1>Account Login</h1>
 
                 <div class="demo-warning">
-                    <strong>⚠️ Educational Demo:</strong> This page is intentionally vulnerable to SQL injection for learning purposes. Do not use this code in production environments.
+                    <strong>Educational Demo:</strong> This page is intentionally vulnerable to SQL injection for learning purposes. Do not use this code in production environments.
                 </div>
 
                 <form id="loginForm">
@@ -294,7 +340,7 @@
                 <div id="message" class="message"></div>
 
                 <div id="accountInfo" class="account-info">
-                    <h3>✓ Account Information</h3>
+                    <h3>Account Information</h3>
                     <div class="info-row">
                         <strong>Username:</strong>
                         <span id="infoUsername"></span>
@@ -317,37 +363,37 @@
                 <button type="button" class="clear-btn" onclick="clearForm()">Clear Form</button>
 
                 <div class="demo-payloads">
-                    <h4>📚 Try These Payloads:</h4>
+                    <h4>Try These Payloads:</h4>
                     <div class="payload-item" onclick="tryPayload('user', 'password123')">
-                        <span class="payload-label">✓ Legitimate Login</span>
+                        <span class="payload-label">Legitimate Login</span>
                         <span class="payload-code">Username: user | Password: password123</span>
                     </div>
                     <div class="payload-item" onclick="tryPayload(&quot;' OR '1'='1&quot;, 'anything')">
-                        <span class="payload-label">💉 OR-Based Injection</span>
+                        <span class="payload-label">OR-Based Injection</span>
                         <span class="payload-code">Username: ' OR '1'='1 | Password: anything</span>
                     </div>
                     <div class="payload-item" onclick="tryPayload(&quot;admin'--&quot;, 'anything')">
-                        <span class="payload-label">💉 Comment Bypass</span>
+                        <span class="payload-label">Comment Bypass</span>
                         <span class="payload-code">Username: admin'-- | Password: anything</span>
                     </div>
                     <div class="payload-item" onclick="tryPayload(&quot;admin'#&quot;, 'anything')">
-                        <span class="payload-label">💉 Hash Comment Bypass</span>
+                        <span class="payload-label">Hash Comment Bypass</span>
                         <span class="payload-code">Username: admin'# | Password: anything</span>
                     </div>
                     <div class="payload-item" onclick="tryPayload(&quot;' AND '1'='1&quot;, &quot;' AND '1'='1&quot;)">
-                        <span class="payload-label">💉 Boolean-Based</span>
+                        <span class="payload-label">Boolean-Based</span>
                         <span class="payload-code">Username: ' AND '1'='1 | Password: ' AND '1'='1</span>
                     </div>
                 </div>
             </div>
 
             <div class="login-info">
-                <div class="bank-logo">🏦</div>
+                <div class="bank-logo"></div>
                 <h2>Welcome</h2>
                 <p>This demo page teaches SQL Injection vulnerabilities in a safe, educational environment.</p>
                 <p><strong>Demo Users:</strong></p>
                 <p>user / password123<br>admin / admin123<br>guest / guest</p>
-                <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">⚠️ For educational purposes only. Never use vulnerable code in production!</p>
+                <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">For educational purposes only. Never use vulnerable code in production!</p>
             </div>
         </div>
     </div>
@@ -444,7 +490,7 @@
 
             if (user) {
                 // Successful login (including SQL injection bypass)
-                showSuccess(`Login successful! Welcome, ${user.username}!`, user);
+                showSuccess(`Login successful. Welcome, ${user.username}.`, user);
             } else {
                 showError('Invalid username or password.');
             }
@@ -452,7 +498,7 @@
 
         function showSuccess(message, user) {
             const msgEl = document.getElementById('message');
-            msgEl.textContent = '✓ ' + message;
+            msgEl.textContent = message;
             msgEl.className = 'message success';
 
             // Display account information
@@ -464,7 +510,7 @@
 
         function showError(message) {
             const msgEl = document.getElementById('message');
-            msgEl.textContent = '✗ ' + message;
+            msgEl.textContent = message;
             msgEl.className = 'message error';
         }
 
