@@ -47,6 +47,14 @@ chmod +x shell
 
 ## 5 Fun Meterpreter Commands
 
+After you run the exploit on the target host, you should go back into Kali, hit CTRL-C to enter back into the command
+line, and then run:
+```bash
+sessions -i 1
+```
+
+this will give you the meterpreter connection and allow you to start running commands on the target machine!
+
 Once you have a session, try these:
 
 ```
