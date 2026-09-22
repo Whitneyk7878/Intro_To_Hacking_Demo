@@ -22,7 +22,7 @@ Open directly in your browser to see a vulnerable login form. Follow the SQL inj
 ---
 
 ### 2. Password Cracking with Hashcat
-**Files:** `HASHCAT_PASSWORD_CRACKING_GUIDE.md` + `PASSWORDS_TO_CRACK.md`
+**Files:** `Password_Cracking_Guide.md` + `Passwords_To_Crack.md`
 
 Install Hashcat on Windows WSL and crack MD5 password hashes in seconds.
 
@@ -41,7 +41,7 @@ See how easily weak passwords are compromised and why strong password practices 
 ---
 
 ### 3. Metasploit Reverse Shell
-**Files:** `METASPLOIT_TCP_REVERSE_SHELL.md` + `setup_reverse_shell.sh`
+**Files:** `Metasploit_Computer_Takeover_Guide.md` + `setup_reverse_shell.sh`
 
 Create and control a reverse shell connection in your cyber range.
 
@@ -63,9 +63,9 @@ The script will:
 |------|---------|
 | `bank_login.html` | Vulnerable login page for SQL injection practice |
 | `SQL_INJECTION_GUIDE.md` | Complete guide on SQL injection techniques |
-| `PASSWORDS_TO_CRACK.md` | 20+ MD5 hashes to crack with difficulty ratings |
-| `HASHCAT_PASSWORD_CRACKING_GUIDE.md` | Installation and usage guide for Hashcat |
-| `METASPLOIT_TCP_REVERSE_SHELL.md` | Step-by-step metasploit listener and payload guide |
+| `Passwords_To_Crack.md` | 20+ MD5 hashes to crack with difficulty ratings |
+| `Password_Cracking_Guide.md` | Installation and usage guide for Hashcat |
+| `Metasploit_Computer_Takeover_Guide.md` | Step-by-step metasploit listener and payload guide |
 | `setup_reverse_shell.sh` | Automated setup script for reverse shell demo |
 
 ---
@@ -99,5 +99,5 @@ Each demo takes 15-30 minutes and builds understanding of real-world attack tech
 ---
 
 **Created for:** University cybersecurity training and authorized security testing  
-**Last Updated:** 2026-09-20  
+**Last Updated:** 2026-09-21  
 **License:** Educational use only
